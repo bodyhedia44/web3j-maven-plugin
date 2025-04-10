@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.web3j</groupId>
     <artifactId>web3j-maven-plugin</artifactId>
@@ -12,9 +13,10 @@
     <url>https://web3j.io</url>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <maven.version>3.8.1</maven.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <maven.version>3.9.9</maven.version>
+        <maven-plugin.version>3.13.0</maven-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <web3j.version>4.13.0</web3j.version>
     </properties>
@@ -37,11 +39,61 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://ssh@github.com/hyperledger-web3j/${project.artifactId}.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/hyperledger-web3j/${project.artifactId}.git</developerConnection>
+        <connection>scm:git:git://ssh@github.com/LFDT-web3j/${project.artifactId}.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/hyperledger-web3j/${project.artifactId}.git
+        </developerConnection>
         <url>https://github.com/hyperledger-web3j/${project.artifactId}.git</url>
         <tag>web3j-maven-plugin-4.13.0</tag>
     </scm>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo1.maven.org/maven2/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>apache-snapshots</id>
+            <name>Apache Snapshots Repository</name>
+            <url>https://repository.apache.org/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>apache-releases</id>
+            <name>Apache Releases Repository</name>
+            <url>https://repository.apache.org/content/repositories/releases/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>consensys</id>
+            <url>https://artifacts.consensys.net/public/maven/maven</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>maven2</id>
+            <url>https://repo.maven.apache.org/maven2/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <dependencies>
         <dependency>
@@ -57,8 +109,8 @@
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
+            <version>${maven-plugin.version}</version>
             <scope>provided</scope>
-            <version>${maven.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.shared</groupId>
@@ -79,9 +131,16 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.1</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>5.11.4</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.maven.plugin-testing</groupId>
             <artifactId>maven-plugin-testing-harness</artifactId>
@@ -105,6 +164,16 @@
             <version>0.4.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.16.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.18.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -112,7 +181,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
-                <version>${maven.version}</version>
+                <version>${maven-plugin.version}</version>
             </plugin>
 
 
@@ -211,23 +280,6 @@
             </build>
         </profile>
     </profiles>
-
-    <repositories>
-        <repository>
-            <id>ethereum</id>
-            <url>https://dl.bintray.com/ethereum/maven/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>consensys</id>
-            <url>https://artifacts.consensys.net/public/maven/maven</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
 
     <distributionManagement>
         <snapshotRepository>

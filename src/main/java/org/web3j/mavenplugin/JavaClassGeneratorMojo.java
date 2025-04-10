@@ -1,7 +1,5 @@
 package org.web3j.mavenplugin;
 
-
-import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -183,11 +181,11 @@ public class JavaClassGeneratorMojo extends AbstractMojo {
         Map<String, String> results = parseAbiFile(fileContent);
 
         List<AbiDefinition> functionDefinitions = loadContractDefinition(results.get(SolidityCompiler.Options.ABI.getName()));
-        if(!functionDefinitions.isEmpty()) {
+        if (!functionDefinitions.isEmpty()) {
             generatedJavaClass(contractName, functionDefinitions, results.get(SolidityCompiler.Options.BIN.getName()));
         } else {
             getLog().warn("Ignoring input abi file for contract \"" + contractName + "\". " +
-                              "ABI Definition is empty.");
+                    "ABI Definition is empty.");
         }
     }
 
@@ -197,7 +195,7 @@ public class JavaClassGeneratorMojo extends AbstractMojo {
         ObjectMapper objectMapper = ObjectMapperFactory.getObjectMapper();
         JsonNode abiData = objectMapper.readTree(fileContent);
 
-        if(abiData.isObject() && abiData.has("abi") && abiData.has("bytecode")) {
+        if (abiData.isObject() && abiData.has("abi") && abiData.has("bytecode")) {
             // truffle or hardhat artifact
             results.put(SolidityCompiler.Options.BIN.getName(), abiData.get("bytecode").asText());
             results.put(SolidityCompiler.Options.ABI.getName(), objectMapper.writeValueAsString(abiData.get("abi")));
