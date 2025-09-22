@@ -80,7 +80,7 @@ public class SolidityCompiler {
                 instance.install();
             } catch (Exception e) {
                 throw new RuntimeException(
-                "Failed, It may be a problem with your connection\n" +
+                "Failed, unable to install solidity, check internet connection \n" +
                                 e
                 );
             }
